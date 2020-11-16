@@ -11,6 +11,7 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 ## Screenshot
+<p align="left">
 <img src="srceenshot/สกรีนช็อต 2020-11-16 232853.png" width="175" height="auto">
 <img src="srceenshot/สกรีนช็อต 2020-11-16 234649.png" width="175" height="auto">
 <img src="srceenshot/สกรีนช็อต 2020-11-16 234720.png" width="175" height="auto">
@@ -25,3 +26,4 @@ samples, guidance on mobile development, and a full API reference.
 <img src="srceenshot/สกรีนช็อต 2020-11-16 235136.png" width="175" height="auto">
 <img src="srceenshot/สกรีนช็อต 2020-11-16 235206.png" width="175" height="auto">
 <img src="srceenshot/สกรีนช็อต 2020-11-16 235220.png" width="175" height="auto">
+</p>
