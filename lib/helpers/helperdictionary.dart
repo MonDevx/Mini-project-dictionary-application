@@ -46,28 +46,30 @@ class HelperDictionary {
 
   static Future<List<Th2eng>> getAllWordsLikeTh(String text) async {
     var response = await _db
-        .query("th2eng", where: "tsearch  LIKE ?", whereArgs: ['%$text']);
+        .query("th2eng", where: "tsearch  LIKE ?", whereArgs: ['%$text'],
+      limit: 5);
     List<Th2eng> list = response.map((c) => Th2eng.fromMap(c)).toList();
     return list;
   }
 
   static Future<Th2eng> getWordTh(String text) async {
     var response =
-        await _db.query("th2eng", where: "tsearch  = ?", whereArgs: [text]);
+        await _db.query("th2eng", where: "tsearch  = ?", whereArgs: [text],
+      limit: 5);
     List<Th2eng> list = response.map((c) => Th2eng.fromMap(c)).toList();
     return list.first;
   }
 
   static Future<List<Eng2th>> getAllWordsLikeEn(String text) async {
-    var response = await _db
-        .query("eng2th", where: "esearch  LIKE ?", whereArgs: ['%$text']);
+    var response = await _db.query("eng2th",
+        where: "esearch  LIKE ?", whereArgs: ['%$text'], limit: 5);
     List<Eng2th> list = response.map((c) => Eng2th.fromMap(c)).toList();
     return list;
   }
 
   static Future<Eng2th> getWordEng(String text) async {
-    var response =
-        await _db.query("eng2th", where: "esearch  = ?", whereArgs: [text]);
+    var response = await _db.query("eng2th",
+        where: "esearch  = ?", whereArgs: [text], limit: 5);
     List<Eng2th> list = response.map((c) => Eng2th.fromMap(c)).toList();
     return list.first;
   }

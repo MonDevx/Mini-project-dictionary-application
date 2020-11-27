@@ -53,6 +53,7 @@ class _BodyState extends State<Body> {
                                   SharedPreferences prefs =
                                       await SharedPreferences.getInstance();
                                   prefs.clear();
+                                  Get.back();
                                 },
                               ),
                             ]));
@@ -78,7 +79,7 @@ languageListTile(BuildContext context) {
     builder: (controller) => ListTile(
       title: Text(labels?.setting?.languageslabel),
       trailing: DropdownPicker(
-        menuOptions: Globals.languageOptions,
+        menuOptions: Globals.languageOptions(context),
         selectedOption: controller.currentLanguage,
         onChanged: (value) async {
           await controller.updateLanguage(value);

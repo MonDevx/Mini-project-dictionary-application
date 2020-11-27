@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mini_project/helpers/helperdictionary.dart';
@@ -18,10 +20,12 @@ class _BodyState extends State<Body> {
   Th2eng _wordth;
   Eng2th _worden;
   bool _disablevoice = false;
+  bool thoreng = true;
   @override
   void initState() {
     super.initState();
     HelperDictionary.connectDB();
+ 
   }
 
   callSetStateWordTh(Th2eng word) async {
@@ -35,6 +39,7 @@ class _BodyState extends State<Body> {
         'history_list', _history.map((e) => e.toString()).toList());
     setState(() {
       _wordth = word;
+      thoreng = true;
     });
     // it can be called without parameters. It will redraw based on changes done in _SecondWidgetState
   }
@@ -50,13 +55,14 @@ class _BodyState extends State<Body> {
         'history_list', _history.map((e) => e.toString()).toList());
     setState(() {
       _worden = word;
+      thoreng = false;
     });
     // it can be called without parameters. It will redraw based on changes done in _SecondWidgetState
   }
 
   @override
   Widget build(BuildContext context) {
-     String lang = Get.locale.toString();
+    String lang = Get.locale.toString();
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(
@@ -65,11 +71,9 @@ class _BodyState extends State<Body> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                seachInput(lang == 'th'
-                    ? callSetStateWordTh
-                    : callSetStateWordEng),
+                seachInput(callSetStateWordTh, callSetStateWordEng),
                 Visibility(
-                  child: lang == 'th'
+                  child: thoreng
                       ? cardWord(_disablevoice, _wordth)
                       : cardWordEng(_disablevoice, _worden),
                   visible: _wordth != null || _worden != null,

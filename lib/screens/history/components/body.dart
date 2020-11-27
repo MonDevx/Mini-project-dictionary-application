@@ -61,7 +61,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     final labels = AppLocalizations.of(context);
-    return widget._history.isEmpty
+    return widget._history?.isEmpty?? true
         ? Center(child: Text(labels?.history?.emptylabel))
         : Padding(
             padding: const EdgeInsets.all(15.0),

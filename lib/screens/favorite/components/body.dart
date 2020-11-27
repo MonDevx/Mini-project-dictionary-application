@@ -62,7 +62,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     final labels = AppLocalizations.of(context);
 
-    return widget._favorite.isEmpty
+    return widget._favorite?.isEmpty ?? true
         ? Center(child: Text(labels?.favorite?.emptylabel))
         : Padding(
             padding: const EdgeInsets.all(15.0),

@@ -44,9 +44,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             Text(labels?.favorite?.title),
             Spacer(),
             IconButton(
-              icon:
-                  Icon(_favorite.isEmpty ? Icons.delete_forever : Icons.delete),
-              onPressed: _favorite.isEmpty
+              icon: Icon(_favorite?.isEmpty ?? true
+                  ? Icons.delete_forever
+                  : Icons.delete),
+              onPressed: _favorite?.isEmpty ?? true
                   ? null
                   : () {
                       Get.dialog(AlertDialog(

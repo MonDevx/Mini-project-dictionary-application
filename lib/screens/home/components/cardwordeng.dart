@@ -136,7 +136,7 @@ class _cardWordEngState extends State<cardWordEng> {
     Set<String> _favorite = new Set();
     bool isFavorite;
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getStringList('history_list') != null) {
+    if (prefs.getStringList('favorite_list') != null) {
       _favorite = prefs.getStringList('favorite_list').toSet();
     }
     if (_favorite?.toList()?.indexOf(getTsearch) != -1 &&

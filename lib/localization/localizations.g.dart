@@ -15,7 +15,7 @@ class AppLocalizations {
     Locale.fromSubtags(languageCode: "th"): AppLocalizations_Labels(
       seacrh: AppLocalizations_Labels_Seacrh(
           title: "พจนานุกรม",
-          seachInputhintlabel: "กรุณากรอกคำค้นหาภาษาไทย",
+          seachInputhintlabel: "กรุณากรอกคำค้นหา",
           tEnglishlabel: "แปลภาษา",
           typewordlabel: "รูปแบบคำ",
           defwordlabel: "คำตรงกันข้าม",
@@ -51,6 +51,8 @@ class AppLocalizations {
       setting: AppLocalizations_Labels_Setting(
           title: "ตั้งค่าระบบ",
           languageslabel: "เปลี่ยนภาษา",
+          languagesthlabel: "ไทย",
+          languagesenglabel: "อังกฤษ",
           cache: "แคช",
           cachecontentdialog: "คุณต้องการลบข้อมูลแคชทั้งหมดใช่หรือไหม ?",
           cachebutton: "ลบแคชข้อมูล"),
@@ -58,7 +60,7 @@ class AppLocalizations {
     Locale.fromSubtags(languageCode: "en"): AppLocalizations_Labels(
       seacrh: AppLocalizations_Labels_Seacrh(
           title: "Dictionary",
-          seachInputhintlabel: "Please enter a English search term",
+          seachInputhintlabel: "Please enter a  search term",
           tEnglishlabel: "Translation",
           typewordlabel: "word pattern",
           defwordlabel: "antonyms",
@@ -94,6 +96,8 @@ class AppLocalizations {
       setting: AppLocalizations_Labels_Setting(
           title: "System Settings",
           languageslabel: "Change language",
+          languagesthlabel: "Thai",
+          languagesenglabel: "English",
           cache: "Cache",
           cachecontentdialog: "Do you want to delete all cached data, right?",
           cachebutton: "Clear cache"),
@@ -112,13 +116,16 @@ class AppLocalizations_Labels_Setting {
   final String cache;
   final String cachecontentdialog;
   final String cachebutton;
-
+  final String languagesthlabel;
+  final String languagesenglabel;
   AppLocalizations_Labels_Setting(
       {this.title,
       this.languageslabel,
       this.cachecontentdialog,
       this.cache,
-      this.cachebutton});
+      this.cachebutton,
+      this.languagesthlabel,
+      this.languagesenglabel});
 }
 
 class AppLocalizations_Labels_Sidebar {

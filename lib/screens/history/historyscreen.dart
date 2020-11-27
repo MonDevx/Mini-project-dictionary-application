@@ -45,8 +45,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
             Spacer(),
             IconButton(
               icon:
-                  Icon(_history.isEmpty ? Icons.delete_forever : Icons.delete),
-              onPressed: _history.isEmpty
+                  Icon(_history?.isEmpty?? true ? Icons.delete_forever : Icons.delete),
+              onPressed: _history?.isEmpty?? true
                   ? null
                   : () {
                       Get.dialog(AlertDialog(
