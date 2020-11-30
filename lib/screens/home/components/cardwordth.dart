@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:mini_project/localization/localizations.dart';
 import 'package:mini_project/models/th2eng_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:clipboard/clipboard.dart';
 
 // ignore: camel_case_types
 class cardWord extends StatefulWidget {
@@ -58,6 +59,12 @@ class _cardWordState extends State<cardWord> {
                   children: [
                     IconButton(
                         color: Colors.white,
+                        icon: Icon(Icons.copy),
+                        onPressed: () {
+                          copyToClipboard(widget.word?.getTsearch, labels);
+                        }),
+                    IconButton(
+                        color: Colors.white,
                         icon: Icon(widget.disablevoice
                             ? Icons.volume_off
                             : Icons.volume_up),
@@ -72,7 +79,7 @@ class _cardWordState extends State<cardWord> {
                             ? Icons.star
                             : Icons.star_border_outlined),
                         onPressed: () {
-                          arFavorite(widget.word?.getTsearch,labels);
+                          arFavorite(widget.word?.getTsearch, labels);
                         })
                   ],
                 ),
@@ -132,7 +139,8 @@ class _cardWordState extends State<cardWord> {
     }
   }
 
-  Future<void> arFavorite(String getTsearch, AppLocalizations_Labels labels) async {
+  Future<void> arFavorite(
+      String getTsearch, AppLocalizations_Labels labels) async {
     Set<String> _favorite = new Set();
     bool isFavorite;
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -149,7 +157,9 @@ class _cardWordState extends State<cardWord> {
     }
     Get.snackbar(
       "${labels?.seacrh?.listlabel} $getTsearch",
-      isFavorite ? labels?.seacrh?.contentAddSnackBar: labels?.favorite?.contentOneSnackBar,
+      isFavorite
+          ? labels?.seacrh?.contentAddSnackBar
+          : labels?.favorite?.contentOneSnackBar,
       colorText: Colors.white,
       backgroundColor: isFavorite ? Colors.green[400] : Colors.red[400],
       duration: Duration(seconds: 5),
@@ -159,6 +169,16 @@ class _cardWordState extends State<cardWord> {
     setState(() {
       _isfavorite = isFavorite;
     });
+  }
+
+  copyToClipboard(String getTsearch, AppLocalizations_Labels labels) {
+    FlutterClipboard.copy(getTsearch).then((value) => Get.snackbar(
+          "${labels?.seacrh?.headCopyToClipboardHeadSnackBar} ",
+          labels?.seacrh?.contentCopyToClipboardSnackBar,
+          colorText: Colors.white,
+          backgroundColor: Colors.green[400],
+          duration: Duration(seconds: 5),
+        ));
   }
 
   Future<void> onLoadFavorite() async {

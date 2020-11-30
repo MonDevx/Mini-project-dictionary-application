@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mini_project/components/drawer.dart';
 import 'package:mini_project/localization/localizations.dart';
+import 'package:mini_project/widgets/drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'components/body.dart';

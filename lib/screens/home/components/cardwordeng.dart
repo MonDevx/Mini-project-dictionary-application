@@ -1,3 +1,4 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
@@ -58,6 +59,12 @@ class _cardWordEngState extends State<cardWordEng> {
                   children: [
                     IconButton(
                         color: Colors.white,
+                        icon: Icon(Icons.copy),
+                        onPressed: () {
+                          copyToClipboard(widget.word?.getEsearch, labels);
+                        }),
+                    IconButton(
+                        color: Colors.white,
                         icon: Icon(widget.disablevoice
                             ? Icons.volume_off
                             : Icons.volume_up),
@@ -72,7 +79,7 @@ class _cardWordEngState extends State<cardWordEng> {
                             ? Icons.star
                             : Icons.star_border_outlined),
                         onPressed: () {
-                          arFavorite(widget.word?.getEsearch,labels);
+                          arFavorite(widget.word?.getEsearch, labels);
                         })
                   ],
                 ),
@@ -93,8 +100,7 @@ class _cardWordEngState extends State<cardWordEng> {
                     style: TextStyle(fontSize: 15, color: Colors.white)),
                 Text('${labels?.seacrh?.mwordlabel} : ${widget.word?.getEthai}',
                     style: TextStyle(fontSize: 15, color: Colors.white)),
-                Text(
-                    '${labels?.seacrh?.ewordlabel} : ${widget.word?.getEant}',
+                Text('${labels?.seacrh?.ewordlabel} : ${widget.word?.getEant}',
                     style: TextStyle(fontSize: 15, color: Colors.white)),
               ],
             ),
@@ -132,7 +138,18 @@ class _cardWordEngState extends State<cardWordEng> {
     }
   }
 
-  Future<void> arFavorite(String getTsearch, AppLocalizations_Labels labels) async {
+  copyToClipboard(String getEsearch, AppLocalizations_Labels labels) {
+    FlutterClipboard.copy(getEsearch).then((value) => Get.snackbar(
+          "${labels?.seacrh?.headCopyToClipboardHeadSnackBar} ",
+          labels?.seacrh?.contentCopyToClipboardSnackBar,
+          colorText: Colors.white,
+          backgroundColor: Colors.green[400],
+          duration: Duration(seconds: 5),
+        ));
+  }
+
+  Future<void> arFavorite(
+      String getTsearch, AppLocalizations_Labels labels) async {
     Set<String> _favorite = new Set();
     bool isFavorite;
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -148,8 +165,10 @@ class _cardWordEngState extends State<cardWordEng> {
       isFavorite = true;
     }
     Get.snackbar(
-    "${labels?.seacrh?.listlabel} $getTsearch",
-      isFavorite ? labels?.seacrh?.contentAddSnackBar: labels?.favorite?.contentOneSnackBar,
+      "${labels?.seacrh?.listlabel} $getTsearch",
+      isFavorite
+          ? labels?.seacrh?.contentAddSnackBar
+          : labels?.favorite?.contentOneSnackBar,
       colorText: Colors.white,
       backgroundColor: isFavorite ? Colors.green[400] : Colors.red[400],
       duration: Duration(seconds: 5),

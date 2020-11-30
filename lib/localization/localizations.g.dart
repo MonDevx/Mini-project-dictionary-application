@@ -22,7 +22,9 @@ class AppLocalizations {
           mwordlabel: "ความหมาย",
           ewordlabel: "ประโยคตัวอย่าง",
           listlabel: "รายการ",
-          contentAddSnackBar: "เพิ่มในรายการที่ชอบสำเร็จ"),
+          contentAddSnackBar: "เพิ่มในรายการที่ชอบสำเร็จ",
+          headCopyToClipboardHeadSnackBar: "คัดลอก",
+          contentCopyToClipboardSnackBar: "คัดลอกไปยังคลิปบอร์ดสำเร็จ"),
       history: AppLocalizations_Labels_History(
         title: "ประวัติการค้นหา",
         titleDialog: "ลบรายการประวัติ",
@@ -67,7 +69,9 @@ class AppLocalizations {
           mwordlabel: "Meaning",
           ewordlabel: "example sentence",
           listlabel: "list",
-          contentAddSnackBar: "Successfully added to favorites"),
+          contentAddSnackBar: "Successfully added to favorites",
+          headCopyToClipboardHeadSnackBar: "Copy to clip",
+          contentCopyToClipboardSnackBar: "Successfully copied to clipboard."),
       history: AppLocalizations_Labels_History(
         title: "Search History",
         titleDialog: "Delete History Item",
@@ -190,7 +194,9 @@ class AppLocalizations_Labels_Seacrh {
       this.mwordlabel,
       this.ewordlabel,
       this.listlabel,
-      this.contentAddSnackBar});
+      this.contentAddSnackBar,
+      this.headCopyToClipboardHeadSnackBar,
+      this.contentCopyToClipboardSnackBar});
   final String title;
   final String seachInputhintlabel;
   final String tEnglishlabel;
@@ -200,6 +206,8 @@ class AppLocalizations_Labels_Seacrh {
   final String ewordlabel;
   final String listlabel;
   final String contentAddSnackBar;
+  final String headCopyToClipboardHeadSnackBar;
+  final String contentCopyToClipboardSnackBar;
 }
 
 class AppLocalizations_Labels {

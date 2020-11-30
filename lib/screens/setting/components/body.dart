@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mini_project/components/dropdownpicker.dart';
+
 import 'package:mini_project/constants/globals.dart';
 import 'package:mini_project/controllers/controllers.dart';
 import 'package:mini_project/localization/localizations.dart';
+import 'package:mini_project/widgets/dropdownpicker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Body extends StatefulWidget {

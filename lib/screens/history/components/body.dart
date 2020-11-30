@@ -61,14 +61,15 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     final labels = AppLocalizations.of(context);
-    return widget._history?.isEmpty?? true
+    return widget._history?.isEmpty ?? true
         ? Center(child: Text(labels?.history?.emptylabel))
         : Padding(
             padding: const EdgeInsets.all(15.0),
             child: ListView.builder(
                 itemCount: widget._history.length,
                 itemBuilder: (context, index) {
-                  final word = widget._history[index];
+                  final word =
+                      widget._history[widget._history.length - index - 1];
 
                   return Dismissible(
                     key: Key(word),

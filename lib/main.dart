@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'components/loading.dart';
+import 'package:mini_project/widgets/loading.dart';
+
 import 'constants/constants.dart';
 import 'controllers/controllers.dart';
 import 'localization/localizations.dart';

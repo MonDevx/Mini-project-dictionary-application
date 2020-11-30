@@ -69,7 +69,8 @@ class _BodyState extends State<Body> {
             child: ListView.builder(
                 itemCount: widget._favorite.length,
                 itemBuilder: (context, index) {
-                  final word = widget._favorite[index];
+                  final word =
+                      widget._favorite[widget._favorite.length - index - 1];
 
                   return Dismissible(
                     key: Key(word),
