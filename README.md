@@ -1,4 +1,4 @@
-# Mini project dictionary appication
+# Mini project dictionary application
 
 ## Getting Started
 
