@@ -14,9 +14,26 @@ class SearchInput extends StatefulWidget {
 
 class _SearchInputState extends State<SearchInput> {
   final TextEditingController _controller = TextEditingController();
+  bool _hasText = false;
+
+  void _onControllerChanged() {
+    final hasText = _controller.text.isNotEmpty;
+    if (hasText != _hasText) {
+      setState(() {
+        _hasText = hasText;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(_onControllerChanged);
+  }
 
   @override
   void dispose() {
+    _controller.removeListener(_onControllerChanged);
     _controller.dispose();
     super.dispose();
   }
@@ -32,21 +49,24 @@ class _SearchInputState extends State<SearchInput> {
         controller: _controller,
         decoration: InputDecoration(
           prefixIcon: const Icon(Icons.search),
-          suffixIcon: IconButton(
-            icon: const Icon(Icons.clear),
-            onPressed: () => _controller.clear(),
-          ),
+          suffixIcon: _hasText
+              ? IconButton(
+                  icon: const Icon(Icons.clear),
+                  onPressed: () => _controller.clear(),
+                )
+              : null,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25.0),
           ),
           hintText: labels?.seacrh?.seachInputhintlabel,
         ),
       ),
-      suggestionsCallback: (pattern) async {
-        checkthoreng = pattern;
-        return !regExp.hasMatch(pattern)
-            ? await HelperDictionary.getAllWordsLikeTh(pattern.toLowerCase())
-            : await HelperDictionary.getAllWordsLikeEn(pattern.toLowerCase());
+      suggestionsCallback: (query) async {
+        checkthoreng = query;
+        if (query.trim().isEmpty) return [];
+        return !regExp.hasMatch(query)
+            ? await HelperDictionary.getAllWordsLikeTh(query.toLowerCase())
+            : await HelperDictionary.getAllWordsLikeEn(query.toLowerCase());
       },
       itemBuilder: (context, words) {
         return ListTile(

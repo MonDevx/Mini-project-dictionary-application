@@ -23,22 +23,34 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.search_outlined),
             title: Text(labels?.sidebar?.title),
-            onTap: () => Get.toNamed("/home"),
+            onTap: () {
+              Navigator.pop(context);
+              Get.toNamed("/home");
+            },
           ),
           ListTile(
             leading: const Icon(Icons.history_edu_outlined),
             title: Text(labels?.history?.title),
-            onTap: () => Get.toNamed("/history"),
+            onTap: () {
+              Navigator.pop(context);
+              Get.toNamed("/history");
+            },
           ),
           ListTile(
             leading: const Icon(Icons.star_border_outlined),
             title: Text(labels?.favorite?.title),
-            onTap: () => Get.toNamed("/favorite"),
+            onTap: () {
+              Navigator.pop(context);
+              Get.toNamed("/favorite");
+            },
           ),
           ListTile(
             leading: const Icon(Icons.settings_applications_outlined),
             title: Text(labels?.setting?.title),
-            onTap: () => Get.toNamed("/setting"),
+            onTap: () {
+              Navigator.pop(context);
+              Get.toNamed("/setting");
+            },
           ),
         ],
       ),
