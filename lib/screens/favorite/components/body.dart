@@ -24,6 +24,7 @@ class _BodyState extends State<Body> {
   Eng2th wordeng;
   bool checkwordeng;
   String lang = Get.locale.toString();
+
   void setfavorite() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setStringList('favorite_list', widget._favorite);
@@ -32,24 +33,17 @@ class _BodyState extends State<Body> {
   Future _speak(String text) async {
     if (text != null && text.isNotEmpty) {
       await widget.fluttertts.setLanguage(lang == "th" ? "th-TH" : "en-US");
-
       await widget.fluttertts.setSpeechRate(1.0);
-
       await widget.fluttertts.setVolume(1.0);
-
       await widget.fluttertts.setPitch(1.0);
-
       await widget.fluttertts
           .isLanguageAvailable(lang == "th" ? "th-TH" : "en-US");
-
       await widget.fluttertts.speak(text);
-
       widget.fluttertts.setStartHandler(() {
         setState(() {
           disablevoice = true;
         });
       });
-
       widget.fluttertts.setCompletionHandler(() {
         setState(() {
           disablevoice = false;
@@ -63,7 +57,19 @@ class _BodyState extends State<Body> {
     final labels = AppLocalizations.of(context);
 
     return widget._favorite?.isEmpty ?? true
-        ? Center(child: Text(labels?.favorite?.emptylabel))
+        ? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.star_border, size: 64, color: Colors.grey[400]),
+                const SizedBox(height: 12),
+                Text(
+                  labels?.favorite?.emptylabel ?? '',
+                  style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                ),
+              ],
+            ),
+          )
         : Padding(
             padding: const EdgeInsets.all(15.0),
             child: ListView.builder(
@@ -76,10 +82,13 @@ class _BodyState extends State<Body> {
                     key: Key(word),
                     direction: DismissDirection.endToStart,
                     background: Container(
+                      alignment: Alignment.centerRight,
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
                         color: Colors.red,
                       ),
+                      child: const Icon(Icons.delete, color: Colors.white),
                     ),
                     onDismissed: (direction) {
                       setState(() {
@@ -91,11 +100,11 @@ class _BodyState extends State<Body> {
                           labels?.favorite?.contentOneSnackBar,
                           colorText: Colors.white,
                           backgroundColor: Colors.green[400],
-                          duration: Duration(seconds: 5),
-                          mainButton: FlatButton(
+                          duration: const Duration(seconds: 5),
+                          mainButton: TextButton(
                             child: Text(
                               '${labels?.favorite?.buttonBackSnackBar}',
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ),
                             onPressed: () => {
                               setState(() =>
@@ -113,7 +122,7 @@ class _BodyState extends State<Body> {
                         title: Row(
                           children: [
                             Text(word),
-                            Spacer(),
+                            const Spacer(),
                             IconButton(
                                 icon: Icon(disablevoice
                                     ? Icons.volume_off
@@ -124,10 +133,10 @@ class _BodyState extends State<Body> {
                                         _speak(word);
                                       }),
                             IconButton(
-                                icon: Icon(Icons.remove_red_eye),
+                                icon: const Icon(Icons.remove_red_eye),
                                 onPressed: () async {
                                   checkwordeng = word.contains(
-                                      new RegExp(r'^[a-z A-Z,.\-]+$'));
+                                      RegExp(r'^[a-z A-Z,.\-]+$'));
                                   if (checkwordeng) {
                                     wordeng =
                                         await HelperDictionary.getWordEng(word);
@@ -161,8 +170,9 @@ class _BodyState extends State<Body> {
                                         ],
                                       ),
                                       actions: [
-                                        FlatButton(
-                                          child: Text("ปิด"),
+                                        TextButton(
+                                          child: Text(
+                                              labels?.favorite?.buttonCloseDialog),
                                           onPressed: () {
                                             Get.back();
                                           },

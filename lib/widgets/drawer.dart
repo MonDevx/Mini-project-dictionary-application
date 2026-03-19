@@ -12,31 +12,34 @@ class MyDrawer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(color: Colors.blueAccent),
+            decoration: const BoxDecoration(color: Colors.blueAccent),
             child: Center(
                 child: Text(labels?.seacrh?.title,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.w800,
                         color: Colors.white))),
           ),
-          FlatButton.icon(
-            onPressed: () => Get.toNamed("/home"),
-            icon: Icon(Icons.search_outlined),
-            label: Text(labels?.sidebar?.title),
+          ListTile(
+            leading: const Icon(Icons.search_outlined),
+            title: Text(labels?.sidebar?.title),
+            onTap: () => Get.toNamed("/home"),
           ),
-          FlatButton.icon(
-              onPressed: () => Get.toNamed("/history"),
-              icon: Icon(Icons.history_edu_outlined),
-              label: Text(labels?.history?.title)),
-          FlatButton.icon(
-              onPressed: () => Get.toNamed("/favorite"),
-              icon: Icon(Icons.star_border_outlined),
-              label: Text(labels?.favorite?.title)),
-          FlatButton.icon(
-              onPressed: () => Get.toNamed("/setting"),
-              icon: Icon(Icons.settings_applications_outlined),
-              label: Text(labels?.setting?.title)),
+          ListTile(
+            leading: const Icon(Icons.history_edu_outlined),
+            title: Text(labels?.history?.title),
+            onTap: () => Get.toNamed("/history"),
+          ),
+          ListTile(
+            leading: const Icon(Icons.star_border_outlined),
+            title: Text(labels?.favorite?.title),
+            onTap: () => Get.toNamed("/favorite"),
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings_applications_outlined),
+            title: Text(labels?.setting?.title),
+            onTap: () => Get.toNamed("/setting"),
+          ),
         ],
       ),
     );

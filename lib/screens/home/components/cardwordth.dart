@@ -6,19 +6,18 @@ import 'package:mini_project/models/th2eng_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:clipboard/clipboard.dart';
 
-// ignore: camel_case_types
-class cardWord extends StatefulWidget {
+class CardWordTh extends StatefulWidget {
   bool disablevoice;
 
   final Th2eng word;
   final FlutterTts fluttertts = FlutterTts();
-  cardWord(this.disablevoice, this.word, {Key key}) : super(key: key);
+  CardWordTh(this.disablevoice, this.word, {Key key}) : super(key: key);
 
   @override
-  _cardWordState createState() => _cardWordState();
+  _CardWordThState createState() => _CardWordThState();
 }
 
-class _cardWordState extends State<cardWord> {
+class _CardWordThState extends State<CardWordTh> {
   List _favoriteList;
   bool _isfavorite = false;
   @override
@@ -28,7 +27,7 @@ class _cardWordState extends State<cardWord> {
   }
 
   @override
-  void didUpdateWidget(cardWord oldWidget) {
+  void didUpdateWidget(CardWordTh oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (widget.word != oldWidget.word) {
@@ -42,7 +41,7 @@ class _cardWordState extends State<cardWord> {
   Widget build(BuildContext context) {
     final labels = AppLocalizations.of(context);
     return Padding(
-      padding: const EdgeInsets.only(top: 60),
+      padding: const EdgeInsets.only(top: 20),
       child: Container(
         child: Card(
           color: Colors.blueAccent,
@@ -141,7 +140,7 @@ class _cardWordState extends State<cardWord> {
 
   Future<void> arFavorite(
       String getTsearch, AppLocalizations_Labels labels) async {
-    Set<String> _favorite = new Set();
+    Set<String> _favorite = {};
     bool isFavorite;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getStringList('favorite_list') != null) {

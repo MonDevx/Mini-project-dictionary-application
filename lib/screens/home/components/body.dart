@@ -1,7 +1,4 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:mini_project/helpers/helperdictionary.dart';
 import 'package:mini_project/models/eng2th_model.dart';
 import 'package:mini_project/models/th2eng_model.dart';
@@ -21,15 +18,15 @@ class _BodyState extends State<Body> {
   Eng2th _worden;
   bool _disablevoice = false;
   bool thoreng = true;
+
   @override
   void initState() {
     super.initState();
     HelperDictionary.connectDB();
- 
   }
 
   callSetStateWordTh(Th2eng word) async {
-    Set<String> _history = new Set();
+    Set<String> _history = {};
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getStringList('history_list') != null) {
       _history = prefs.getStringList('history_list').toSet();
@@ -41,11 +38,10 @@ class _BodyState extends State<Body> {
       _wordth = word;
       thoreng = true;
     });
-    // it can be called without parameters. It will redraw based on changes done in _SecondWidgetState
   }
 
   callSetStateWordEng(Eng2th word) async {
-    Set<String> _history = new Set();
+    Set<String> _history = {};
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getStringList('history_list') != null) {
       _history = prefs.getStringList('history_list').toSet();
@@ -57,29 +53,25 @@ class _BodyState extends State<Body> {
       _worden = word;
       thoreng = false;
     });
-    // it can be called without parameters. It will redraw based on changes done in _SecondWidgetState
   }
 
   @override
   Widget build(BuildContext context) {
-    String lang = Get.locale.toString();
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                seachInput(callSetStateWordTh, callSetStateWordEng),
-                Visibility(
-                  child: thoreng
-                      ? cardWord(_disablevoice, _wordth)
-                      : cardWordEng(_disablevoice, _worden),
-                  visible: _wordth != null || _worden != null,
-                ),
-              ],
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SearchInput(callSetStateWordTh, callSetStateWordEng),
+              Visibility(
+                visible: _wordth != null || _worden != null,
+                child: thoreng
+                    ? CardWordTh(_disablevoice, _wordth)
+                    : CardWordEng(_disablevoice, _worden),
+              ),
+            ],
           ),
         ),
       ),

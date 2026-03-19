@@ -53,13 +53,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         title: Text(labels?.history?.titleDialog),
                         content: Text(labels?.history?.contentDialog),
                         actions: [
-                          FlatButton(
+                          TextButton(
                             child: Text(labels?.history?.buttonCloseDialog),
                             onPressed: () {
                               Get.back();
                             },
                           ),
-                          FlatButton(
+                          TextButton(
                             child: Text(labels?.history?.buttonOkDialog),
                             onPressed: () async {
                               SharedPreferences prefs =
