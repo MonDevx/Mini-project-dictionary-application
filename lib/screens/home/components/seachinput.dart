@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:mini_project/helpers/helperdictionary.dart';
 import 'package:mini_project/localization/localizations.dart';
+import 'package:mini_project/models/th2eng_model.dart';
 
 class SearchInput extends StatefulWidget {
   final Function callSetStateWordTh;
@@ -43,7 +44,6 @@ class _SearchInputState extends State<SearchInput> {
     final labels = AppLocalizations.of(context);
     final String pattern = r'^[a-z A-Z,.\-]+$';
     final RegExp regExp = RegExp(pattern);
-    String checkthoreng = "";
     return TypeAheadField(
       textFieldConfiguration: TextFieldConfiguration(
         controller: _controller,
@@ -62,7 +62,6 @@ class _SearchInputState extends State<SearchInput> {
         ),
       ),
       suggestionsCallback: (query) async {
-        checkthoreng = query;
         if (query.trim().isEmpty) return [];
         return !regExp.hasMatch(query)
             ? await HelperDictionary.getAllWordsLikeTh(query.toLowerCase())
@@ -71,13 +70,11 @@ class _SearchInputState extends State<SearchInput> {
       itemBuilder: (context, words) {
         return ListTile(
           leading: const Icon(Icons.translate),
-          title: Text(!regExp.hasMatch(checkthoreng)
-              ? words.getTsearch
-              : words.getEsearch),
+          title: Text(words is Th2eng ? words.getTsearch : words.getEsearch),
         );
       },
       onSuggestionSelected: (words) {
-        !regExp.hasMatch(checkthoreng)
+        words is Th2eng
             ? widget.callSetStateWordTh(words)
             : widget.callSetStateWordEng(words);
       },

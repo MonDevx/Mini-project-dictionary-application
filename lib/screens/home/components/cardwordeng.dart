@@ -7,7 +7,7 @@ import 'package:mini_project/models/eng2th_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CardWordEng extends StatefulWidget {
-  bool disablevoice;
+  final bool disablevoice;
 
   final Eng2th word;
   final FlutterTts fluttertts = FlutterTts();
@@ -20,9 +20,11 @@ class CardWordEng extends StatefulWidget {
 class _CardWordEngState extends State<CardWordEng> {
   List _favoriteList;
   bool _isfavorite = false;
+  bool _disablevoice = false;
   @override
   void initState() {
     super.initState();
+    _disablevoice = widget.disablevoice;
     onLoadFavorite();
   }
 
@@ -64,10 +66,10 @@ class _CardWordEngState extends State<CardWordEng> {
                         }),
                     IconButton(
                         color: Colors.white,
-                        icon: Icon(widget.disablevoice
+                        icon: Icon(_disablevoice
                             ? Icons.volume_off
                             : Icons.volume_up),
-                        onPressed: widget.disablevoice
+                        onPressed: _disablevoice
                             ? null
                             : () {
                                 _speak(widget.word?.getEsearch);
@@ -125,13 +127,13 @@ class _CardWordEngState extends State<CardWordEng> {
 
       widget.fluttertts.setStartHandler(() {
         setState(() {
-          widget.disablevoice = true;
+          _disablevoice = true;
         });
       });
 
       widget.fluttertts.setCompletionHandler(() {
         setState(() {
-          widget.disablevoice = false;
+          _disablevoice = false;
         });
       });
     }
