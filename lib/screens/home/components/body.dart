@@ -71,7 +71,7 @@ class _BodyState extends State<Body> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                seachInput(callSetStateWordTh, callSetStateWordEng),
+                SearchInput(callSetStateWordTh, callSetStateWordEng),
                 Visibility(
                   child: thoreng
                       ? cardWord(_disablevoice, _wordth)
