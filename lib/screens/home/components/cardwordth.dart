@@ -25,7 +25,23 @@ class _CardWordThState extends State<CardWordTh> {
   void initState() {
     super.initState();
     _disablevoice = widget.disablevoice;
+    widget.fluttertts.setStartHandler(() {
+      setState(() {
+        _disablevoice = true;
+      });
+    });
+    widget.fluttertts.setCompletionHandler(() {
+      setState(() {
+        _disablevoice = false;
+      });
+    });
     onLoadFavorite();
+  }
+
+  @override
+  void dispose() {
+    widget.fluttertts.stop();
+    super.dispose();
   }
 
   @override
@@ -125,18 +141,6 @@ class _CardWordThState extends State<CardWordTh> {
       await widget.fluttertts.isLanguageAvailable("th-TH");
 
       await widget.fluttertts.speak(text);
-
-      widget.fluttertts.setStartHandler(() {
-        setState(() {
-          _disablevoice = true;
-        });
-      });
-
-      widget.fluttertts.setCompletionHandler(() {
-        setState(() {
-          _disablevoice = false;
-        });
-      });
     }
   }
 

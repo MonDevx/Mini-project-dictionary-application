@@ -25,7 +25,23 @@ class _CardWordEngState extends State<CardWordEng> {
   void initState() {
     super.initState();
     _disablevoice = widget.disablevoice;
+    widget.fluttertts.setStartHandler(() {
+      setState(() {
+        _disablevoice = true;
+      });
+    });
+    widget.fluttertts.setCompletionHandler(() {
+      setState(() {
+        _disablevoice = false;
+      });
+    });
     onLoadFavorite();
+  }
+
+  @override
+  void dispose() {
+    widget.fluttertts.stop();
+    super.dispose();
   }
 
   @override
@@ -124,18 +140,6 @@ class _CardWordEngState extends State<CardWordEng> {
       await widget.fluttertts.isLanguageAvailable("en-US");
 
       await widget.fluttertts.speak(text);
-
-      widget.fluttertts.setStartHandler(() {
-        setState(() {
-          _disablevoice = true;
-        });
-      });
-
-      widget.fluttertts.setCompletionHandler(() {
-        setState(() {
-          _disablevoice = false;
-        });
-      });
     }
   }
 
