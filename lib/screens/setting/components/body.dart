@@ -35,20 +35,20 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Spacer(),
-                    RaisedButton(
+                    ElevatedButton(
                       onPressed: () {
                         Get.dialog(AlertDialog(
                             title: Text(labels?.setting?.cache),
                             content: Text(labels?.setting?.cachecontentdialog),
                             actions: [
-                              FlatButton(
+                              TextButton(
                                 child:
                                     Text(labels?.favorite?.buttonCloseDialog),
                                 onPressed: () {
                                   Get.back();
                                 },
                               ),
-                              FlatButton(
+                              TextButton(
                                 child: Text(labels?.favorite?.buttonOkDialog),
                                 onPressed: () async {
                                   SharedPreferences prefs =
@@ -59,10 +59,8 @@ class _BodyState extends State<Body> {
                               ),
                             ]));
                       },
-                      color: Colors.blue,
                       child: Text(
                         labels?.setting?.cachebutton,
-                        style: TextStyle(color: Colors.white),
                       ),
                     )
                   ],

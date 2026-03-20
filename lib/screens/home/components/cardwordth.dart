@@ -6,29 +6,46 @@ import 'package:mini_project/models/th2eng_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:clipboard/clipboard.dart';
 
-// ignore: camel_case_types
-class cardWord extends StatefulWidget {
-  bool disablevoice;
+class CardWordTh extends StatefulWidget {
+  final bool disablevoice;
 
   final Th2eng word;
   final FlutterTts fluttertts = FlutterTts();
-  cardWord(this.disablevoice, this.word, {Key key}) : super(key: key);
+  CardWordTh(this.disablevoice, this.word, {Key key}) : super(key: key);
 
   @override
-  _cardWordState createState() => _cardWordState();
+  _CardWordThState createState() => _CardWordThState();
 }
 
-class _cardWordState extends State<cardWord> {
+class _CardWordThState extends State<CardWordTh> {
   List _favoriteList;
   bool _isfavorite = false;
+  bool _disablevoice = false;
   @override
   void initState() {
     super.initState();
+    _disablevoice = widget.disablevoice;
+    widget.fluttertts.setStartHandler(() {
+      setState(() {
+        _disablevoice = true;
+      });
+    });
+    widget.fluttertts.setCompletionHandler(() {
+      setState(() {
+        _disablevoice = false;
+      });
+    });
     onLoadFavorite();
   }
 
   @override
-  void didUpdateWidget(cardWord oldWidget) {
+  void dispose() {
+    widget.fluttertts.stop();
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(CardWordTh oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (widget.word != oldWidget.word) {
@@ -42,7 +59,7 @@ class _cardWordState extends State<cardWord> {
   Widget build(BuildContext context) {
     final labels = AppLocalizations.of(context);
     return Padding(
-      padding: const EdgeInsets.only(top: 60),
+      padding: const EdgeInsets.only(top: 20),
       child: Container(
         child: Card(
           color: Colors.blueAccent,
@@ -65,10 +82,10 @@ class _cardWordState extends State<cardWord> {
                         }),
                     IconButton(
                         color: Colors.white,
-                        icon: Icon(widget.disablevoice
+                        icon: Icon(_disablevoice
                             ? Icons.volume_off
                             : Icons.volume_up),
-                        onPressed: widget.disablevoice
+                        onPressed: _disablevoice
                             ? null
                             : () {
                                 _speak(widget.word?.getTsearch);
@@ -124,24 +141,12 @@ class _cardWordState extends State<cardWord> {
       await widget.fluttertts.isLanguageAvailable("th-TH");
 
       await widget.fluttertts.speak(text);
-
-      widget.fluttertts.setStartHandler(() {
-        setState(() {
-          widget.disablevoice = true;
-        });
-      });
-
-      widget.fluttertts.setCompletionHandler(() {
-        setState(() {
-          widget.disablevoice = false;
-        });
-      });
     }
   }
 
   Future<void> arFavorite(
       String getTsearch, AppLocalizations_Labels labels) async {
-    Set<String> _favorite = new Set();
+    Set<String> _favorite = {};
     bool isFavorite;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getStringList('favorite_list') != null) {

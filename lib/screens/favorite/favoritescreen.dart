@@ -54,13 +54,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         title: Text(labels?.favorite?.titleDialog),
                         content: Text(labels?.favorite?.contentDialog),
                         actions: [
-                          FlatButton(
+                          TextButton(
                             child: Text(labels?.favorite?.buttonCloseDialog),
                             onPressed: () {
                               Get.back();
                             },
                           ),
-                          FlatButton(
+                          TextButton(
                             child: Text(labels?.favorite?.buttonOkDialog),
                             onPressed: () async {
                               SharedPreferences prefs =
